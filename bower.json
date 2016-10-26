@@ -1,5 +1,14 @@
 {
   "name": "purescript-dom-filereader",
+  "license": "MIT",
+  "authors": [
+    "Nicholas Wolverson"
+  ],
+  "description": "Aff-based wrappers for FileReader API based on top of purescript-dom",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nwolverson/purescript-dom-filereader.git"
+  },
   "ignore": [
     "**/.*",
     "node_modules",
@@ -8,10 +17,10 @@
   ],
   "dependencies": {
     "purescript-dom": "^3.1.0",
-    "purescript-aff": "^2.0.1"
+    "purescript-aff": "^2.0.1",
+    "purescript-arraybuffer-types": "^0.2.0"
   },
   "devDependencies": {
-    "purescript-console": "^2.0.0",
-    "purescript-arraybuffer-types": "^0.2.0"
+    "purescript-console": "^2.0.0"
   }
 }
