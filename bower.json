@@ -1,0 +1,17 @@
+{
+  "name": "purescript-dom-filereader",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "output"
+  ],
+  "dependencies": {
+    "purescript-dom": "^3.1.0",
+    "purescript-aff": "^2.0.1"
+  },
+  "devDependencies": {
+    "purescript-console": "^2.0.0",
+    "purescript-arraybuffer-types": "^0.2.0"
+  }
+}
