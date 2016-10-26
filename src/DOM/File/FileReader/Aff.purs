@@ -26,7 +26,7 @@ readAs readMethod getResult blob = makeAff \err succ -> do
   addEventListener EventTypes.error (eventListener \_ -> err (error "error")) false et
   addEventListener EventTypes.load (eventListener \_ -> do
       res <- result fr
-      either (const $ err $ error "Result was of incorrect type") succ $ runExcept $ readMethod res
+      either (\errs -> err $ error $ show errs) succ $ runExcept $ readMethod res
     ) false et
   getResult blob fr
 
