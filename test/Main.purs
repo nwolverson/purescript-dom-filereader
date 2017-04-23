@@ -20,15 +20,14 @@ import DOM.HTML.Window (document)
 import DOM.Node.NonElementParentNode (getElementById)
 import DOM.Node.Types (ElementId(ElementId), elementToEventTarget, documentToNonElementParentNode)
 import Data.Maybe (fromJust)
-import Data.Nullable (toMaybe)
 import Partial.Unsafe (unsafePartial)
 import Unsafe.Coerce (unsafeCoerce)
 
 main :: forall e. Eff (console :: CONSOLE, dom :: DOM | e) Unit
 main = unsafePartial $ do
   d <- document =<< window
-  b <- fromJust <$> toMaybe <$> body d
-  fileInput <- fromJust <$> toMaybe <$> getElementById (ElementId "fileInput") (documentToNonElementParentNode $ htmlDocumentToDocument d)
+  b <- fromJust <$> body d
+  fileInput <- fromJust <$> getElementById (ElementId "fileInput") (documentToNonElementParentNode $ htmlDocumentToDocument d)
   let inputElt = unsafeCoerce fileInput :: HTMLInputElement
   let reader :: forall eff. File -> Eff (dom :: DOM, console :: CONSOLE | eff) Unit
       reader f = void $ runAff (\_ -> pure unit) (\_ -> pure unit) do
@@ -38,7 +37,7 @@ main = unsafePartial $ do
 
   let handler :: forall a eff. a -> Eff (dom :: DOM, console :: CONSOLE | eff) Unit
       handler _ = void $ runMaybeT do
-        fs <- MaybeT $ toMaybe <$> files inputElt
-        file <- MaybeT $ pure $ toMaybe $ item 0 fs
+        fs <- MaybeT $ files inputElt
+        file <- MaybeT $ pure $ item 0 fs
         lift $ reader file
   addEventListener change (eventListener handler) false (elementToEventTarget $ fileInput)
