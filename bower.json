@@ -18,12 +18,9 @@
   "dependencies": {
     "purescript-dom": "^4.0.0",
     "purescript-aff": "^3.0.0",
-    "purescript-arraybuffer-types": "^2.0.0"
+    "purescript-arraybuffer-types": "^1.0.0"
   },
   "devDependencies": {
     "purescript-console": "^3.0.0"
-  },
-  "resolutions": {
-    "purescript-arraybuffer-types": "^2.0.0"
   }
 }
