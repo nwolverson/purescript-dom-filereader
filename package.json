@@ -7,7 +7,7 @@
   },
   "scripts": {
     "build": "pulp build",
-    "test": "pulp test --runtime cat > html/index.js && open html/index.html"
+    "test": "pulp test --runtime cat > html/index.js"
   },
   "author": "Nicholas Wolverson <nicholas.wolverson@gmail.com> (http://nwolverson.uk)",
   "license": "MIT"
