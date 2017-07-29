@@ -10,7 +10,7 @@ install:
   - chmod a+x $HOME/purescript
   - npm install -g bower pulp
 script:
-  - npm install && bower install && pulp test
+  - npm install && bower install && npm test
 after_success:
 - >-
   test $TRAVIS_TAG &&
