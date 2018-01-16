@@ -16,11 +16,14 @@ import DOM.Event.EventTarget (eventListener, addEventListener)
 import DOM.File.FileReader (result, fileReader)
 import DOM.File.Types (Blob, FileReader, fileReaderToEventTarget)
 import Data.ArrayBuffer.Types (ArrayBuffer)
-import Data.Either (either)
+import Data.Either (Either(Left,Right), either)
 import Data.Foreign (F, Foreign, unsafeReadTagged, readString)
+import Data.Monoid (mempty)
 
 readAs :: forall eff a. (Foreign -> F a) -> (Blob -> FileReader -> Eff (dom :: DOM | eff) Unit) -> Blob -> Aff (dom :: DOM | eff) a
-readAs readMethod getResult blob = makeAff \err succ -> do
+readAs readMethod getResult blob = makeAff \fun -> do
+  let err = fun <<< Left
+      succ = fun <<< Right
   fr <- fileReader
   let et = fileReaderToEventTarget fr
   addEventListener EventTypes.error (eventListener \_ -> err (error "error")) false et
@@ -29,6 +32,8 @@ readAs readMethod getResult blob = makeAff \err succ -> do
       either (\errs -> err $ error $ show errs) succ $ runExcept $ readMethod res
     ) false et
   getResult blob fr
+  pure mempty
+
 
 readAsText :: forall eff. Blob -> Aff (dom :: DOM | eff) String
 readAsText = readAs readString FileReader.readAsText
