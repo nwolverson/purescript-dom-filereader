@@ -30,7 +30,7 @@ main = unsafePartial $ do
   fileInput <- fromJust <$> getElementById (ElementId "fileInput") (documentToNonElementParentNode $ htmlDocumentToDocument d)
   let inputElt = unsafeCoerce fileInput :: HTMLInputElement
   let reader :: forall eff. File -> Eff (dom :: DOM, console :: CONSOLE | eff) Unit
-      reader f = void $ runAff (\_ -> pure unit) (\_ -> pure unit) do
+      reader f = void $ runAff (\_ -> pure unit) do
         res <- readAsText (fileToBlob f)
         res2 <- readAsArrayBuffer (fileToBlob f)
         liftEff $ log res
