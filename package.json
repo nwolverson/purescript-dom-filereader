@@ -1,6 +1,6 @@
 {
   "name": "purescript-dom-filereader",
-  "version": "1.0.0",
+  "version": "3.0.0",
   "description": "Aff wrappers for FileReader API from purescript-dom",
   "directories": {
     "test": "test"
