@@ -1,6 +1,5 @@
 {
   "name": "purescript-dom-filereader",
-  "version": "3.0.0",
   "description": "Aff wrappers for FileReader API from purescript-dom",
   "directories": {
     "test": "test"
@@ -10,5 +9,6 @@
     "test": "pulp test --runtime cat > html/index.js"
   },
   "author": "Nicholas Wolverson <nicholas.wolverson@gmail.com> (http://nwolverson.uk)",
-  "license": "MIT"
+  "license": "MIT",
+  "private": true
 }
