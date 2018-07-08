@@ -1,4 +1,4 @@
-module DOM.File.FileReader.Aff
+module Web.File.FileReader.Aff
   ( readAsText
   , readAsArrayBuffer
   , readAsDataURL
