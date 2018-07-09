@@ -1,43 +1,42 @@
 module Test.Main where
 
-import Prelude
-import Control.Monad.Aff (runAff)
-import Control.Monad.Eff (Eff)
-import Control.Monad.Eff.Class (liftEff)
-import Control.Monad.Eff.Console (CONSOLE, log)
 import Control.Monad.Maybe.Trans (lift, MaybeT(MaybeT), runMaybeT)
-import DOM (DOM)
-import DOM.Event.EventTarget (eventListener, addEventListener)
-import DOM.File.FileList (item)
-import DOM.File.FileReader.Aff (readAsArrayBuffer, readAsText)
-import DOM.File.Types (File, fileToBlob)
-import DOM.HTML (window)
-import DOM.HTML.Document (body)
-import DOM.HTML.Event.EventTypes (change)
-import DOM.HTML.HTMLInputElement (files)
-import DOM.HTML.Types (HTMLInputElement, htmlDocumentToDocument)
-import DOM.HTML.Window (document)
-import DOM.Node.NonElementParentNode (getElementById)
-import DOM.Node.Types (ElementId(ElementId), elementToEventTarget, documentToNonElementParentNode)
 import Data.Maybe (fromJust)
+import Effect (Effect)
+import Effect.Aff (runAff)
+import Effect.Class (liftEffect)
+import Effect.Console (log)
 import Partial.Unsafe (unsafePartial)
+import Prelude
 import Unsafe.Coerce (unsafeCoerce)
+import Web.DOM.Document (toNonElementParentNode)
+import Web.DOM.Element (toEventTarget)
+import Web.DOM.NonElementParentNode (getElementById)
+import Web.Event.EventTarget (eventListener, addEventListener)
+import Web.File.File (File, toBlob)
+import Web.File.FileList (item)
+import Web.File.FileReader.Aff (readAsArrayBuffer, readAsText)
+import Web.HTML (window)
+import Web.HTML.Event.EventTypes (change)
+import Web.HTML.HTMLDocument (toDocument, body)
+import Web.HTML.HTMLInputElement (HTMLInputElement, files)
+import Web.HTML.Window (document)
 
-main :: forall e. Eff (console :: CONSOLE, dom :: DOM | e) Unit
+main :: Effect Unit
 main = unsafePartial $ do
   d <- document =<< window
   b <- fromJust <$> body d
-  fileInput <- fromJust <$> getElementById (ElementId "fileInput") (documentToNonElementParentNode $ htmlDocumentToDocument d)
+  fileInput <- fromJust <$> getElementById "fileInput" (toNonElementParentNode $ toDocument d)
   let inputElt = unsafeCoerce fileInput :: HTMLInputElement
-  let reader :: forall eff. File -> Eff (dom :: DOM, console :: CONSOLE | eff) Unit
+  let reader :: File -> Effect Unit
       reader f = void $ runAff (\_ -> pure unit) do
-        res <- readAsText (fileToBlob f)
-        res2 <- readAsArrayBuffer (fileToBlob f)
-        liftEff $ log res
+        res <- readAsText (toBlob f)
+        res2 <- readAsArrayBuffer (toBlob f)
+        liftEffect $ log res
 
-  let handler :: forall a eff. a -> Eff (dom :: DOM, console :: CONSOLE | eff) Unit
-      handler _ = void $ runMaybeT do
-        fs <- MaybeT $ files inputElt
-        file <- MaybeT $ pure $ item 0 fs
-        lift $ reader file
-  addEventListener change (eventListener handler) false (elementToEventTarget $ fileInput)
+  handler <- eventListener \_ -> void $ runMaybeT do
+    fs <- MaybeT $ files inputElt
+    file <- MaybeT $ pure $ item 0 fs
+    lift $ reader file
+
+  addEventListener change handler false (toEventTarget $ fileInput)

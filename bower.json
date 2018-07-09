@@ -16,11 +16,12 @@
     "output"
   ],
   "dependencies": {
-    "purescript-dom": "^4.0.0",
-    "purescript-aff": "^4.0.0",
-    "purescript-arraybuffer-types": "^1.0.0"
+    "purescript-web-html": "^1.0.0",
+    "purescript-aff": "^5.0.0",
+    "purescript-arraybuffer-types": "^2.0.0",
+    "purescript-web-file": "^1.0.0"
   },
   "devDependencies": {
-    "purescript-console": "^3.0.0"
+    "purescript-console": "^4.1.0"
   }
 }
