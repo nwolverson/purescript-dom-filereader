@@ -7,8 +7,14 @@
   },
   "scripts": {
     "build": "pulp build",
-    "test": "pulp test --runtime cat > html/index.js"
+    "test": "pulp build -I test && esbuild test-entry.js --bundle --outfile=html/index.js"
   },
   "author": "Nicholas Wolverson <nicholas.wolverson@gmail.com> (http://nwolverson.uk)",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "pulp": "^16.0.1",
+    "purescript": "^0.15.0",
+    "purescript-psa": "^0.8.2",
+    "esbuild": "^0.14.39"
+  }
 }
