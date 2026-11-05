@@ -1,0 +1,30 @@
+package:
+  name: dom-filereader
+  description: Aff-based wrappers for FileReader API based on top of purescript-dom
+  publish:
+    version: 7.0.1
+    license: MIT
+    location:
+      githubOwner: nwolverson
+      githubRepo: purescript-dom-filereader
+  dependencies:
+    - aff: ">=7.0.0 <9.0.0"
+    - arraybuffer-types: ">=3.0.2 <4.0.0"
+    - effect: ">=4.0.0 <5.0.0"
+    - either: ">=6.0.0 <7.0.0"
+    - exceptions: ">=6.0.0 <7.0.0"
+    - foreign: ">=7.0.0 <8.0.0"
+    - prelude: ">=6.0.0 <7.0.0"
+    - transformers: ">=6.0.0 <7.0.0"
+    - web-events: ">=4.0.0 <5.0.0"
+    - web-file: ">=4.0.0 <5.0.0"
+    - web-html: ">=4.0.0 <5.0.0"
+  test:
+    main: Test.Main
+    dependencies:
+      - console: ">=6.0.0 <7.0.0"
+      - maybe: ">=6.0.0 <7.0.0"
+      - partial: ">=4.0.0 <5.0.0"
+      - unsafe-coerce: ">=6.0.0 <7.0.0"
+      - web-dom: ">=6.0.0 <7.0.0"
+workspace: {}
