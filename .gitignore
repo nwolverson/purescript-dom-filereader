@@ -5,3 +5,5 @@
 /.psci*
 /src/.webpack.js
 /html/index.js
+/.spago/
+/spago.lock

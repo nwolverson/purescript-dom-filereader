@@ -6,15 +6,14 @@
     "test": "test"
   },
   "scripts": {
-    "build": "pulp build",
-    "test": "pulp build -I test && esbuild test-entry.js --bundle --outfile=html/index.js"
+    "build": "spago build",
+    "test": "spago build && esbuild test-entry.js --bundle --outfile=html/index.js"
   },
   "author": "Nicholas Wolverson <nicholas.wolverson@gmail.com> (http://nwolverson.uk)",
   "license": "MIT",
   "dependencies": {
-    "pulp": "^16.0.1",
-    "purescript": "^0.15.0",
-    "purescript-psa": "^0.8.2",
+    "spago": "1.0.5",
+    "purescript": "^0.15.4",
     "esbuild": "^0.14.39"
   }
 }
